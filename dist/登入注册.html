@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title><link rel="stylesheet" href="css/index.css"><link rel="stylesheet" href="css/reset.css"><script>window.onload=function(){
+           var oEmail = document.getElementById("input1");
+           var oEmail_span = document.getElementById("oemail_span");
+           var oPassword = document.getElementById("password");
+           var oPassword_span = document.getElementById("password_span");
+           var oTestSpan = document.getElementById("testSpan");
+           var aSpans = oTestSpan.getElementsByTagName("span");
+
+           oPassword.onfocus = function(){
+               oPassword_span.style.display = "block"
+               oPassword_span.innerHTML = "6~16个字符，区分大小写";
+               oPassword_span.style.color = "grey";
+
+           }
+           oPassword.onblur = function(){
+               oPassword_span.style.display = "none";
+               oTestSpan.style.display = "none";
+           }
+           oPassword.oninput = function(){
+               var oValue = this.value;
+               if(oValue.length>=6){
+                   //显示密码判断
+                   oTestSpan.style.display = "block";
+                   oPassword_span.style.display = "none"
+                   //判断密码强度
+                   //<1>取消所有span样式
+                    for(var i = 0;i<aSpans.length;i++){
+                        aSpans[i].className = "";
+                    }
+                    //判断当前密码的强弱
+                    if(/^\d+$/.test(oValue) || /^[a-z]+$/.test(oValue) || /^[A-Z]+$/.test(oValue)){
+                        aSpans[0].className = "active";
+                    }else if(/\d/.test(oValue) && /[a-z]/.test(oValue) && /[A-Z]/.test(oValue)){
+                        aSpans[2].className = "active";
+                    }else{
+                        aSpans[1].className = "active";
+                    }
+               }else{
+                   //显示提示部分
+                   oTestSpan.style.display = "none";
+                   oPassword_span.style.display = "block";
+               }
+           }
+           oEmail.onfocus = function(){
+               oEmail_span.style.display = "block";
+               oEmail_span.style.color = "grey";
+               oEmail_span.innerHTML =
+                "6~18个字符，可以使用字母。数字，下划线，需要以字母开头";
+           }
+           oEmail.onblur = function(){
+               var oValue = this.value;
+               //判断输入框内容是否为空
+               if(!oValue){
+                oEmail_span.style.display = "none";
+               }else if(oValue.length > 18 || oValue.length < 6){
+                oEmail_span.style.display = "block";
+                oEmail_span.style.color = "grey";
+                oEmail_span.innerHTML =
+                "长度应为6~18个字符";
+               }else if(/[^a-zA-Z]/.test(oValue[0])){
+                oEmail_span.style.display = "block";
+                oEmail_span.style.color = "grey";
+                oEmail_span.innerHTML =
+                "!邮箱地址需要以字母开头";
+               }else if(/\W/.test(oValue)){
+                oEmail_span.style.display = "block";
+                oEmail_span.style.color = "grey";
+                oEmail_span.innerHTML =
+                "!只能输入字母，数字，下划线";
+               }else{
+                oEmail_span.style.display = "block";
+                oEmail_span.style.color = "green";
+                oEmail_span.innerHTML =
+                "✔恭喜，该邮箱可以注册";
+               }
+           }
+       }</script></head><body><!-- 头部 --><header><div class="headercenter"><a href="" class="a1"></a> <a href="" class="a2"></a> <a href="" class="a3"></a><ol class="ol1"><li class="li1">中国第一大电子邮件服务商</li></ol><ol class="ol2"><li class="li2">帮助</li><li class="li3">反馈</li></ol></div></header><!-- 身体部分 --><div class="content"><div class="content1"><span class="wangye">欢迎注册网易邮箱</span><ol class="ol3"><li class="li4">免费邮箱</li><li class="li5">vip邮箱</li></ol><input type="text" placeholder="邮箱地址" id="input1"> <span id="oemail_span" style="display:none;color:rgb(219, 192, 255)">6~18个字符，可使用字母，数字，下划线，需要以字母开头</span> <input type="text" placeholder="密码" id="password"> <span id="password_span">6-16个字符，区分大小写</span><div id="testSpan"><span class>弱</span> <span class>中</span> <span class="active">强</span></div><input type="text" placeholder="手机号码" id="input3"> <span id="ophone_span" style="display:none;color:rgb(219, 192, 255)">6~18个字符，可使用字母，数字，下划线，需要以字母开头</span><div class="xuanze"><input type="checkbox" class="check"> <span class="tiaokuan">同意《服务条款》、《隐私政策》和《儿童隐私政策》</span></div><div class="zhuce">立即注册</div></div></div></body></html>
